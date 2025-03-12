@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Contributing to Lithops">
+  <Header />
+  <main class="pt-32 pb-20">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold mb-8">Contributing to Lithops</h1>
+        
+        <p class="text-gray-700 mb-8">
+          Lithops is an open-source project, and we welcome contributions from the community. Whether you're fixing bugs, adding new features, improving documentation, or spreading the word, your help is appreciated.
+        </p>
+        
+        <section class="mb-12">
+          <h2 class="text-3xl font-semibold mb-6">How to Contribute</h2>
+          
+          <div class="space-y-8">
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">1. Fork the Repository</h3>
+              <p class="text-gray-700 mb-4">
+                Start by forking the <a href="https://github.com/lithops-cloud/lithops" class="text-primary hover:underline" target="_blank">Lithops repository</a> on GitHub.
+              </p>
+              <div class="bg-gray-900 p-4 rounded-lg">
+                <code class="text-white">git clone https://github.com/your-username/lithops.git</code>
+              </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">2. Create a Branch</h3>
+              <p class="text-gray-700 mb-4">
+                Create a branch for your changes. Use a descriptive name that reflects the purpose of your changes.
+              </p>
+              <div class="bg-gray-900 p-4 rounded-lg">
+                <code class="text-white">git checkout -b feature/your-feature-name</code>
+              </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">3. Make Your Changes</h3>
+              <p class="text-gray-700 mb-4">
+                Make your changes to the codebase. Be sure to follow the coding style and guidelines of the project.
+              </p>
+              <p class="text-gray-700">
+                If you're adding a new feature, consider adding tests and documentation for it.
+              </p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">4. Run Tests</h3>
+              <p class="text-gray-700 mb-4">
+                Make sure all tests pass before submitting your changes.
+              </p>
+              <div class="bg-gray-900 p-4 rounded-lg">
+                <code class="text-white">python -m pytest</code>
+              </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">5. Submit a Pull Request</h3>
+              <p class="text-gray-700 mb-4">
+                Push your changes to your fork and submit a pull request to the main repository.
+              </p>
+              <div class="bg-gray-900 p-4 rounded-lg mb-4">
+                <code class="text-white">git push origin feature/your-feature-name</code>
+              </div>
+              <p class="text-gray-700">
+                In your pull request description, explain the changes you've made and why they're needed.
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <section class="mb-12">
+          <h2 class="text-3xl font-semibold mb-6">Contribution Guidelines</h2>
+          
+          <ul class="space-y-4 text-gray-700">
+            <li class="flex items-start">
+              <span class="text-primary mr-2">•</span>
+              <span><strong>Code Style</strong> - Follow the existing code style. We use PEP 8 for Python code.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary mr-2">•</span>
+              <span><strong>Documentation</strong> - Update documentation for any changes you make.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary mr-2">•</span>
+              <span><strong>Tests</strong> - Add tests for new features and make sure all tests pass.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary mr-2">•</span>
+              <span><strong>Commit Messages</strong> - Write clear, concise commit messages that explain your changes.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="text-primary mr-2">•</span>
+              <span><strong>Pull Requests</strong> - Keep pull requests focused on a single change or feature.</span>
+            </li>
+          </ul>
+        </section>
+        
+        <section>
+          <h2 class="text-3xl font-semibold mb-6">Get in Touch</h2>
+          
+          <p class="text-gray-700 mb-4">
+            If you have questions or need help, you can:
+          </p>
+          
+          <ul class="space-y-2 text-gray-700">
+            <li>
+              <a href="https://github.com/lithops-cloud/lithops/issues" class="text-primary hover:underline" target="_blank">
+                Open an issue on GitHub
+              </a>
+            </li>
+            <li>
+              <a href="https://join.slack.com/t/lithops-cloud/shared_invite/zt-1r5uyqnp5-jT6Mq9xGEiTJXYzqYhqvqA" class="text-primary hover:underline" target="_blank">
+                Join our Slack community
+              </a>
+            </li>
+            <li>
+              <a href="mailto:lithops@gmail.com" class="text-primary hover:underline">
+                Email us at lithops@gmail.com
+              </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Getting Started with Lithops">
+  <Header />
+  <main class="pt-32 pb-20">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold mb-8">Getting Started with Lithops</h1>
+        
+        <div class="space-y-12">
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">Installation</h2>
+            <div class="bg-gray-900 p-4 rounded-lg mb-4">
+              <code class="text-white">pip install lithops</code>
+            </div>
+            <p class="text-gray-700">
+              Lithops is available as a Python package that can be installed with pip. It requires Python 3.6 or higher.
+            </p>
+          </section>
+          
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">Configuration</h2>
+            <p class="text-gray-700 mb-4">
+              Lithops needs access to your cloud provider credentials. You can configure Lithops in several ways:
+            </p>
+            <ol class="list-decimal pl-6 space-y-2 text-gray-700">
+              <li>Using a configuration file (<code>~/.lithops_config</code>)</li>
+              <li>Using environment variables</li>
+              <li>Programmatically when creating the executor</li>
+            </ol>
+            
+            <div class="mt-6 bg-gray-100 p-4 rounded-lg">
+              <h3 class="font-semibold mb-2">Example Configuration File</h3>
+              <pre class="bg-gray-900 p-4 rounded-lg text-white overflow-x-auto"><code>lithops:
+  backend: aws_lambda
+
+aws:
+  access_key_id: your_access_key
+  secret_access_key: your_secret_key
+  region: us-east-1</code></pre>
+            </div>
+          </section>
+          
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">Your First Lithops Function</h2>
+            <p class="text-gray-700 mb-4">
+              Here's a simple example to get you started with Lithops:
+            </p>
+            
+            <div class="bg-gray-900 p-4 rounded-lg">
+              <pre class="text-white"><code>from lithops import FunctionExecutor
+
+def hello_world(name):
+    return f'Hello, {name}!'
+
+# Create a FunctionExecutor
+with FunctionExecutor() as executor:
+    # Execute the function
+    future = executor.call_async(hello_world, 'World')
+    # Get the result
+    result = future.result()
+    print(result)  # Prints: Hello, World!</code></pre>
+            </div>
+          </section>
+          
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">Parallel Execution</h2>
+            <p class="text-gray-700 mb-4">
+              Lithops makes it easy to execute functions in parallel:
+            </p>
+            
+            <div class="bg-gray-900 p-4 rounded-lg">
+              <pre class="text-white"><code>from lithops import FunctionExecutor
+
+def process_data(data):
+    # Some computation with the data
+    return data * 2
+
+data_list = list(range(10))
+
+with FunctionExecutor() as executor:
+    # Map the function to the data
+    futures = executor.map(process_data, data_list)
+    # Get all results
+    results = executor.get_result()
+    print(results)  # Prints: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</code></pre>
+            </div>
+          </section>
+          
+          <section>
+            <h2 class="text-2xl font-semibold mb-4">Next Steps</h2>
+            <p class="text-gray-700 mb-4">
+              Now that you've got the basics, you can:
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>Explore the <a href="/documentation" class="text-primary hover:underline">full documentation</a></li>
+              <li>Learn about <a href="/green-computing" class="text-primary hover:underline">green computing with Lithops</a></li>
+              <li>Check out the <a href="https://github.com/lithops-cloud/lithops/tree/master/examples" class="text-primary hover:underline" target="_blank">example repository</a></li>
+              <li>Join the <a href="https://join.slack.com/t/lithops-cloud/shared_invite/zt-1r5uyqnp5-jT6Mq9xGEiTJXYzqYhqvqA" class="text-primary hover:underline" target="_blank">Lithops community on Slack</a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

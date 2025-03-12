@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="Lithops Documentation">
+  <Header />
+  <main class="pt-32 pb-20">
+    <div class="container mx-auto px-6">
+      <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold mb-8">Documentation</h1>
+        
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+          <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h2 class="text-2xl font-semibold mb-4">Core Concepts</h2>
+            <ul class="space-y-2">
+              <li><a href="#architecture" class="text-primary hover:underline">Architecture</a></li>
+              <li><a href="#function-executor" class="text-primary hover:underline">Function Executor</a></li>
+              <li><a href="#cloud-backends" class="text-primary hover:underline">Cloud Backends</a></li>
+              <li><a href="#storage" class="text-primary hover:underline">Storage</a></li>
+              <li><a href="#monitoring" class="text-primary hover:underline">Monitoring</a></li>
+            </ul>
+          </div>
+          
+          <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h2 class="text-2xl font-semibold mb-4">Guides</h2>
+            <ul class="space-y-2">
+              <li><a href="#getting-started" class="text-primary hover:underline">Getting Started</a></li>
+              <li><a href="#configuration" class="text-primary hover:underline">Configuration</a></li>
+              <li><a href="#data-processing" class="text-primary hover:underline">Data Processing</a></li>
+              <li><a href="#debugging" class="text-primary hover:underline">Debugging</a></li>
+              <li><a href="#best-practices" class="text-primary hover:underline">Best Practices</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <section id="architecture" class="mb-12">
+          <h2 class="text-3xl font-semibold mb-4">Architecture</h2>
+          <p class="text-gray-700 mb-4">
+            Lithops is designed to provide a unified interface for executing functions across different cloud providers. The architecture consists of the following components:
+          </p>
+          
+          <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h3 class="text-xl font-semibold mb-2">Client</h3>
+            <p class="text-gray-700">
+              The client is responsible for orchestrating the execution of functions. It handles the serialization of functions and data, scheduling, and result collection.
+            </p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h3 class="text-xl font-semibold mb-2">Executor</h3>
+            <p class="text-gray-700">
+              The executor is the main interface for users. It provides methods for executing functions synchronously or asynchronously, and for collecting results.
+            </p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-xl font-semibold mb-2">Worker</h3>
+            <p class="text-gray-700">
+              Workers are the compute units that execute the functions. They can be serverless functions, containers, or virtual machines, depending on the backend.
+            </p>
+          </div>
+        </section>
+        
+        <section id="function-executor" class="mb-12">
+          <h2 class="text-3xl font-semibold mb-4">Function Executor</h2>
+          <p class="text-gray-700 mb-4">
+            The FunctionExecutor is the main interface for executing functions with Lithops. It provides methods for executing functions synchronously or asynchronously, and for collecting results.
+          </p>
+          
+          <div class="bg-gray-900 p-4 rounded-lg">
+            <pre class="text-white"><code>from lithops import FunctionExecutor
+
+def my_function(x):
+    return x * x
+
+# Create a FunctionExecutor
+with FunctionExecutor() as executor:
+    # Execute the function asynchronously
+    future = executor.call_async(my_function, 4)
+    # Get the result
+    result = future.result()
+    print(result)  # Prints: 16
+    
+    # Execute the function in parallel
+    futures = executor.map(my_function, range(10))
+    # Get all results
+    results = executor.get_result()
+    print(results)  # Prints: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</code></pre>
+          </div>
+        </section>
+        
+        <div class="text-center mt-12">
+          <p class="text-gray-700 mb-4">
+            For the complete documentation, please visit our GitHub repository:
+          </p>
+          <a 
+            href="https://github.com/lithops-cloud/lithops" 
+            class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors inline-block"
+            target="_blank"
+          >
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

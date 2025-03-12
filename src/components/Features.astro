@@ -1,0 +1,41 @@
+---
+const features = [
+  {
+    title: 'Multi-Cloud Support',
+    description: 'Deploy your functions across AWS, Google Cloud, IBM Cloud, and more with a single interface.',
+    icon: '🌐'
+  },
+  {
+    title: 'Cost Efficient',
+    description: 'Pay only for the compute time you actually use, with intelligent resource allocation.',
+    icon: '💰'
+  },
+  {
+    title: 'Easy Integration',
+    description: 'Simple Python API that integrates seamlessly with your existing codebase.',
+    icon: '🔌'
+  },
+  {
+    title: 'Scalable',
+    description: 'Automatically scale your functions from zero to thousands of concurrent executions.',
+    icon: '📈'
+  }
+];
+---
+
+<section id="features" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">
+      Why Choose Lithops?
+    </h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {features.map(feature => (
+        <div class="p-6 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors">
+          <div class="text-4xl mb-4">{feature.icon}</div>
+          <h3 class="text-xl font-semibold mb-2">{feature.title}</h3>
+          <p class="text-gray-600">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

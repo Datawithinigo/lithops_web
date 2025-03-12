@@ -1,0 +1,29 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-gray-900 text-white py-12">
+  <div class="container mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="mb-4 md:mb-0">
+        <p>&copy; {currentYear} Lithops. All rights reserved.</p>
+      </div>
+      <div class="flex space-x-6">
+        <a
+          href="https://github.com/lithops-cloud/lithops"
+          class="hover:text-gray-300 transition-colors"
+          target="_blank"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://lithops-cloud.github.io/docs"
+          class="hover:text-gray-300 transition-colors"
+          target="_blank"
+        >
+          Documentation
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

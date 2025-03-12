@@ -1,0 +1,41 @@
+---
+---
+
+<section id="documentation" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">
+        Get Started
+      </h2>
+      
+      <div class="bg-white p-8 rounded-lg shadow-sm">
+        <h3 class="text-2xl font-semibold mb-4">Quick Installation</h3>
+        <div class="bg-gray-900 p-4 rounded-lg mb-6">
+          <code class="text-white">pip install lithops</code>
+        </div>
+        
+        <h3 class="text-2xl font-semibold mb-4">Basic Usage</h3>
+        <div class="bg-gray-900 p-4 rounded-lg">
+          <pre class="text-white"><code>from lithops import FunctionExecutor
+
+def my_function(x):
+    return x + 7
+
+with FunctionExecutor() as fexec:
+    future = fexec.call_async(my_function, 3)
+    print(future.result())  # Prints 10</code></pre>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <a
+            href="https://lithops-cloud.github.io/docs"
+            class="text-primary hover:text-primary/80 font-semibold"
+            target="_blank"
+          >
+            View Full Documentation →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
