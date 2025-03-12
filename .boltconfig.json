@@ -1,0 +1,10 @@
+{
+  "projectType": "static-site",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "appFiles": {
+    "pages": "src/pages",
+    "components": "components",
+    "layouts": "layouts"
+  }
+}

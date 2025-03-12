@@ -1,3 +1,10 @@
 {
-  "template": "astro"
+  "name": "lithops-web",
+  "version": "1.0.0",
+  "template": "astro",
+  "appFiles": {
+    "pages": "src/pages",
+    "components": "src/components",
+    "layouts": "src/layouts"
+  }
 }
