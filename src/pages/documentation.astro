@@ -18,9 +18,7 @@ const initialData = [] as EnergyData[];
     <div class="grid gap-6">
       <div class="bg-white rounded-lg shadow p-6">
         <h2>Upload Data</h2>
-        <FileUploader client:load onDataLoaded={(data: EnergyData[]) => {
-          window.dispatchEvent(new CustomEvent('data-loaded', { detail: data }));
-        }} />
+<FileUploader client:load />
       </div>
       
       <div class="bg-white rounded-lg shadow p-6">
@@ -50,7 +48,8 @@ const initialData = [] as EnergyData[];
 <script define:vars={{ initialData }}>
   let currentData = initialData;
 
-  window.addEventListener('data-loaded', (event) => {
+  document.addEventListener('data-loaded', (event) => {
+    console.log("Data loaded event received:", event.detail);
     currentData = event.detail;
     window.dispatchEvent(new CustomEvent('update-data', { detail: currentData }));
   });
