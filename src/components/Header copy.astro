@@ -1,0 +1,65 @@
+---
+---
+<header class="header">
+  <nav>
+    <div class="logo">
+      <a href="/">My Website</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="/green-computing" class="green-link">Green Computing</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header {
+    background-color: #ffffff;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    color: #333;
+  }
+
+  .green-link {
+    color: #2ecc71 !important;
+    font-weight: 500;
+  }
+
+  .green-link:hover {
+    color: #27ae60 !important;
+  }
+</style>

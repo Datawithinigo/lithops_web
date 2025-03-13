@@ -1,0 +1,135 @@
+---
+---
+<div class="file-uploader">
+  <div 
+    id="dropZone"
+    class="drop-zone"
+  >
+    <input 
+      type="file" 
+      id="fileInput" 
+      accept=".csv"
+      class="hidden" 
+    />
+    <label 
+      for="fileInput" 
+      class="upload-label"
+    >
+      Choose CSV File or Drag & Drop
+    </label>
+    <p id="fileName" class="mt-2 text-sm text-gray-600"></p>
+  </div>
+</div>
+
+<script>
+  import Papa from 'papaparse';
+
+  window.addEventListener('load', () => {
+    const fileInput = document.getElementById('fileInput');
+    const fileNameDisplay = document.getElementById('fileName');
+    const dropZone = document.getElementById('dropZone');
+
+    if (!fileInput || !dropZone) return;
+
+    // Prevent default drag behaviors
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }, false);
+    });
+
+    // Add visual feedback for drag over
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => {
+        dropZone.classList.add('dragover');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => {
+        dropZone.classList.remove('dragover');
+      }, false);
+    });
+
+    // Handle dropped files
+    dropZone.addEventListener('drop', (e) => {
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        handleFile(files[0]);
+      }
+    });
+
+    // Add click handler to drop zone
+    dropZone.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    function handleFile(file: File) {
+      if (!file) return;
+
+      if (fileNameDisplay) {
+        fileNameDisplay.textContent = `Selected file: ${file.name}`;
+      }
+
+      Papa.parse(file, {
+        complete: (results) => {
+          const event = new CustomEvent('data-loaded', {
+            detail: results.data
+          });
+          document.dispatchEvent(event);
+        },
+        header: true
+      });
+    }
+
+    fileInput.addEventListener('change', async (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      handleFile(file);
+    });
+  });
+</script>
+
+<style>
+  .file-uploader {
+    margin-bottom: 2rem;
+  }
+
+  .upload-label {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: #2ecc71;
+    color: white;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .upload-label:hover {
+    background-color: #27ae60;
+  }
+
+  .drop-zone {
+    border: 2px dashed #2ecc71;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    pointer-events: all;
+  }
+
+  .hidden {
+    position: absolute;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .drop-zone.dragover {
+    background-color: #f0fff4;
+    border-color: #27ae60;
+  }
+</style>

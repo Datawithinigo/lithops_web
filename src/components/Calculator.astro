@@ -1,0 +1,131 @@
+---
+---
+<div class="calculator">
+  <div class="results hidden" id="results">
+    <h3>Calculation Results</h3>
+    <div class="result-grid">
+      <div class="result-card">
+        <h4>Total Energy Consumption</h4>
+        <p id="totalEnergy">0 kWh</p>
+      </div>
+      <div class="result-card">
+        <h4>Average Daily Usage</h4>
+        <p id="avgDaily">0 kWh</p>
+      </div>
+      <div class="result-card">
+        <h4>Carbon Footprint</h4>
+        <p id="carbonFootprint">0 kg CO₂</p>
+      </div>
+    </div>
+    <div class="chart-container">
+      <canvas id="energyChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  import Chart from 'chart.js/auto';
+
+  let chart: Chart | null = null;
+
+  document.addEventListener('data-loaded', ((event: CustomEvent) => {
+    const data = event.detail;
+    const results = document.getElementById('results');
+    results?.classList.remove('hidden');
+
+    // Calculate metrics
+    const totalEnergy = data.reduce((sum: number, row: any) => 
+      sum + (parseFloat(row.energy) || 0), 0);
+    
+    const avgDaily = totalEnergy / (data.length || 1);
+    const carbonFootprint = totalEnergy * 0.4; // Approximate CO2 kg per kWh
+
+    // Update display
+    document.getElementById('totalEnergy')!.textContent = `${totalEnergy.toFixed(2)} kWh`;
+    document.getElementById('avgDaily')!.textContent = `${avgDaily.toFixed(2)} kWh`;
+    document.getElementById('carbonFootprint')!.textContent = `${carbonFootprint.toFixed(2)} kg CO₂`;
+
+    // Create chart
+    const ctx = document.getElementById('energyChart') as HTMLCanvasElement;
+    
+    if (chart) {
+      chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.map((row: any) => row.date),
+        datasets: [{
+          label: 'Energy Consumption (kWh)',
+          data: data.map((row: any) => parseFloat(row.energy) || 0),
+          borderColor: '#2ecc71',
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }) as EventListener);
+</script>
+
+<style>
+  .calculator {
+    margin-top: 2rem;
+  }
+
+  .results {
+    background: #f9f9f9;
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+
+  .results h3 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .result-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .result-card h4 {
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .result-card p {
+    color: #2ecc71;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .chart-container {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
