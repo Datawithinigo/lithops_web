@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,7 +12,20 @@ import {
   type ChartOptions as ChartJSOptions
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
-import { EnergyData, ChartData } from '../types';
+import type { EnergyData } from '../types';
+import type { ChartData as ChartJSData } from 'chart.js';
+
+// Define the ChartData type locally
+interface ChartData {
+  labels: string[];
+  datasets: {
+    label: string;
+    data: (number | null)[];
+    backgroundColor: string;
+    borderColor: string;
+    borderWidth: number;
+  }[];
+}
 
 ChartJS.register(
   CategoryScale,
@@ -32,7 +45,22 @@ interface DataVisualizerProps {
 
 type ChartOptions = ChartJSOptions<'bar' | 'line'>;
 
-export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data = [], chartType }) => {
+export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data: initialData = [], chartType }) => {
+  const [data, setData] = useState<EnergyData[]>(initialData);
+  
+  // Listen for data-loaded events
+  useEffect(() => {
+    const handleDataLoaded = (event: CustomEvent<EnergyData[]>) => {
+      console.log('DataVisualizer received data:', event.detail);
+      setData(event.detail);
+    };
+    
+    document.addEventListener('data-loaded', handleDataLoaded as EventListener);
+    
+    return () => {
+      document.removeEventListener('data-loaded', handleDataLoaded as EventListener);
+    };
+  }, []);
   const chartData = useMemo(() => {
     // Group data by function
     const groupedByFunction = data.reduce((acc, item) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { EnergyData } from '../types';
+import type { EnergyData } from '../types';
 import { Filter, Calendar, MapPin, Code, Zap } from 'lucide-react';
 
 interface DataFiltersProps {
@@ -23,10 +23,25 @@ const defaultFilters = {
   energyThreshold: 0
 };
 
-export const DataFilters: React.FC<DataFiltersProps> = ({ filters = defaultFilters, onFilterChange, data }) => {
+export const DataFilters: React.FC<DataFiltersProps> = ({ filters = defaultFilters, onFilterChange, data: initialData }) => {
+  const [data, setData] = useState<EnergyData[]>(initialData);
   const [localFilters, setLocalFilters] = useState(filters);
   const [functions, setFunctions] = useState<string[]>([]);
   const [regions, setRegions] = useState<string[]>([]);
+  
+  // Listen for data-loaded events
+  useEffect(() => {
+    const handleDataLoaded = (event: CustomEvent<EnergyData[]>) => {
+      console.log('DataFilters received data:', event.detail);
+      setData(event.detail);
+    };
+    
+    document.addEventListener('data-loaded', handleDataLoaded as EventListener);
+    
+    return () => {
+      document.removeEventListener('data-loaded', handleDataLoaded as EventListener);
+    };
+  }, []);
   
   useEffect(() => {
     const uniqueFunctions = Array.from(new Set(data.map(item => item.function)));

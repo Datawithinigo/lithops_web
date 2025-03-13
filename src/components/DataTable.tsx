@@ -1,16 +1,31 @@
-import React, { useState } from 'react';
-import { EnergyData } from '../types';
+import React, { useState, useEffect } from 'react';
+import type { EnergyData } from '../types';
 import { ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface DataTableProps {
   data?: EnergyData[];
 }
 
-export const DataTable: React.FC<DataTableProps> = ({ data = [] }) => {
+export const DataTable: React.FC<DataTableProps> = ({ data: initialData = [] }) => {
+  const [data, setData] = useState<EnergyData[]>(initialData);
   const [sortField, setSortField] = useState<keyof EnergyData>('timestamp');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  
+  // Listen for data-loaded events
+  useEffect(() => {
+    const handleDataLoaded = (event: CustomEvent<EnergyData[]>) => {
+      console.log('DataTable received data:', event.detail);
+      setData(event.detail);
+    };
+    
+    document.addEventListener('data-loaded', handleDataLoaded as EventListener);
+    
+    return () => {
+      document.removeEventListener('data-loaded', handleDataLoaded as EventListener);
+    };
+  }, []);
 
   const handleSort = (field: keyof EnergyData) => {
     if (sortField === field) {
